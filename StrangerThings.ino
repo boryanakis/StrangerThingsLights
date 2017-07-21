@@ -40,6 +40,7 @@ String phrases[] = {
     "help me",
     "im trapped",
     "hi mom"
+    // "abcdefghijklmnopqrstuvwxyz"
 };
 
 // the order of the letters, in reverse order
@@ -56,6 +57,7 @@ void setup(){
 
 void loop()
 {
+    // showAllLetters();
     fullBright();
     flicker();
     followMe();
@@ -182,4 +184,27 @@ void fullBright() {
     setLights();
     strip.show();
     delay(3000);
+}
+
+void showAllLetters() {
+    strip.clear();
+    strip.show();
+
+    for(int i=0; i < letters.length(); i++) {
+        int charIndex = i;
+
+        // multiply by 2 so we skip every other light
+        charIndex = charIndex * lightsBetweenLetters;
+
+        // see if the charindex is greater than our skip start
+        // if it is, add the number of skips to it
+        if(skipLightStart <= charIndex) {
+            charIndex += numSkipLights;
+        }
+        strip.setPixelColor(charIndex, colors[charIndex % differentColors]);
+        strip.show();
+    }
+    strip.show();
+    delay(10000);
+    strip.clear();
 }
